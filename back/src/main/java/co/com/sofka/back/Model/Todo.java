@@ -1,10 +1,6 @@
 package co.com.sofka.back.Model;
 
-
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 //En esta clase nos servira como entidad de la tabla
 @Entity
@@ -12,9 +8,13 @@ public class Todo {
 
     //Utilizamos las anotaciones para que sea autoincrement
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(length = 25, nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private boolean isCompleted;
 
     //Getters

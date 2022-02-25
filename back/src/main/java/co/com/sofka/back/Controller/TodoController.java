@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 //Controlador que sera intermediario entre el front y los servicios
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class TodoController {
 
     @Autowired
@@ -16,13 +17,13 @@ public class TodoController {
     //Mostrar todos los Todos que haya
     @GetMapping(value = "api/todos")
     public Iterable<Todo> list(){
-        return TDservices.findAll();
+        return TDservices.list();
     }
 
     //Guardar el objeto en la BD
-    @PostMapping(value = "api/todo")
-    public Todo save(Todo todo){
-        return TDservices.save(todo);
+    @PostMapping(value = "api/Createtodo")
+    public Todo save(@RequestBody Todo todo){
+        return this.TDservices.save(todo);
     }
 
     //Actualizar los datos, es igual al Post
@@ -32,7 +33,7 @@ public class TodoController {
         if(todo.getId() != null)    //Si el objeto no es vacio, guarda!
             return TDservices.save(todo);
 
-        throw new RuntimeException("No existe el ID para Actualizar!!!")
+        throw new RuntimeException("No existe el ID para Actualizar!!!");
     }
 
     //Eliminar el objeto espeficicado por la ID
